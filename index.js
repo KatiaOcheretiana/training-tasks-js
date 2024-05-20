@@ -306,4 +306,280 @@ function betterThanAverage(classPoints, yourPoints) {
   return averageMark <= yourPoints;
 }
 
-console.log(betterThanAverage([100, 40, 34, 57, 29, 72, 57, 88], 25));
+// console.log(betterThanAverage([100, 40, 34, 57, 29, 72, 57, 88], 25));
+
+// ====================================================================
+
+// 20.05.2024
+
+// 1.
+// Who remembers back to their time in the schoolyard,
+//   when girls would take a flower and tear its petals, saying each
+// of the following phrases each time a petal was torn:
+
+// "I love you"
+// "a little"
+// "a lot"
+// "passionately"
+// "madly"
+// "not at all"
+// If there are more than 6 petals, you start over with "I love you"
+// for 7 petals, "a little" for 8 petals and so on.
+
+// When the last petal was torn there were cries of excitement, dreams,
+//   surging thoughts and emotions.
+
+// Your goal in this kata is to determine which phrase the girls would say
+// at the last petal for a flower of a given number of petals.
+// The number of petals is always greater than 0.
+
+function howMuchILoveYou(nbPetals) {
+  const steps = [
+    "I love you",
+    "a little",
+    "a lot",
+    "passionately",
+    "madly",
+    "not at all",
+  ];
+
+  const index = (nbPetals - 1) % steps.length;
+
+  return steps[index];
+}
+
+// console.log(howMuchILoveYou(284));
+// console.log(howMuchILoveYou(6));
+
+// 2.
+
+// In this simple exercise, you will create a program that will take two lists
+// of integers, a and b.Each list will consist of 3 positive integers above 0,
+//   representing the dimensions of cuboids a and b.You must find the difference
+//    of the cuboids' volumes regardless of which is bigger.
+
+// For example, if the parameters passed are([2, 2, 3], [5, 4, 1]), the volume of
+// a is 12 and the volume of b is 20. Therefore, the function should return 8.
+
+// Your function will be tested with pre-made examples as well as random ones.
+
+// If you can, try writing it in one line of code.
+
+function findDifference(a, b) {
+  return Math.abs(
+    a.reduce((acc, num) => (acc = acc * num), 1) -
+      b.reduce((acc, num) => (acc = acc * num), 1)
+  );
+}
+
+// console.log(findDifference([4, 5, 30], [3, 23, 14]));
+
+// 3.
+// All of the animals are having a feast! Each animal is bringing one dish.There is just one rule:
+// the dish must start and end with the same letters as the animal's name. For example, the great blue heron
+// is bringing garlic naan and the chickadee is bringing chocolate cake.
+
+// Write a function feast that takes the animal's name and dish as arguments and returns true or false
+// to indicate whether the beast is allowed to bring the dish to the feast.
+
+// Assume that beast and dish are always lowercase strings, and that each has at least two letters.
+// beast and dish may contain hyphens and spaces, but these will not appear at the beginning
+// or end of the string.They will not contain numerals.
+
+function feast(beast, dish) {
+  return (
+    beast[0] === dish[0] && beast[beast.length - 1] === dish[dish.length - 1]
+  );
+}
+
+// console.log(feast("great blue heron", "garlic naan"));
+// console.log(feast("brown bear", "bear claw"));
+
+// 4.
+// Create a function finalGrade, which calculates the final grade of a student depending
+//  on two parameters: a grade for the exam and a number of completed projects.
+
+// This function should take two arguments: exam - grade for exam(from 0 to 100);
+//   projects - number of completed projects(from 0 and above);
+
+// This function should return a number (final grade). There are four types of final grades:
+
+// 100, if a grade for the exam is more than 90 or if a number of completed projects more than 10.
+// 90, if a grade for the exam is more than 75 and if a number of completed projects is minimum 5.
+// 75, if a grade for the exam is more than 50 and if a number of completed projects is minimum 2.
+// 0, in other cases
+// Examples(Inputs-->Output):
+
+// 100, 12 --> 100
+// 99, 0 --> 100
+// 10, 15 --> 100
+
+// 85, 5 --> 90
+
+// 55, 3 --> 75
+
+// 55, 0 --> 0
+// 20, 2 --> 0
+
+function finalGrade(exam, projects) {
+  if (exam > 90 || projects > 10) {
+    return 100;
+  } else if (exam > 75 && projects >= 5) {
+    return 90;
+  } else if (exam > 50 && projects >= 2) {
+    return 75;
+  } else {
+    return 0;
+  }
+}
+
+// console.log(finalGrade(0, 12));
+// console.log(finalGrade(85, 5));
+
+// 5.
+// Count the number of divisors of a positive integer n.
+
+// Random tests go up to n = 500000.
+
+// Examples (input --> output)
+// 4 --> 3 // we have 3 divisors - 1, 2 and 4
+// 5 --> 2 // we have 2 divisors - 1 and 5
+// 12 --> 6 // we have 6 divisors - 1, 2, 3, 4, 6 and 12
+// 30 --> 8 // we have 8 divisors - 1, 2, 3, 5, 6, 10, 15 and 30
+// Note you should only return a number, the count of divisors.The numbers b
+// etween parentheses are shown only for you to see which numbers are counted in each case.
+
+// function getDivisorsCnt(n) {
+//   const divisors = [];
+//   for (let i = 1; i <= n; i++) {
+//     if (n % i == 0) {
+//       divisors.push(i);
+//     }
+//   }
+//   return divisors.length;
+// }
+
+// function getDivisorsCnt(n) {
+//   let count = 0;
+//   for (let i = 1; i <= n; i++) {
+//     if (n % i === 0) {
+//       count++;
+//     }
+//   }
+//   return count;
+// }
+
+function getDivisorsCnt(n) {
+  let count = 0;
+
+  for (let i = 1; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      if (i === n / i) {
+        count += 1;
+      } else {
+        count += 2;
+      }
+    }
+  }
+
+  return count;
+}
+
+// console.log(getDivisorsCnt(1));
+// console.log(getDivisorsCnt(54));
+// console.log(getDivisorsCnt(54));
+
+// 6.
+
+// A square of squares
+// You like building blocks.You especially like building blocks that are squares.
+//  And what you even like more, is to arrange them into a square of square building blocks!
+
+// However, sometimes, you can't arrange them into a square. Instead, you end up with an ordinary rectangle!
+// Those blasted things! If you just had a way to know, whether you're currently working in vain… Wait!
+// That's it! You just have to check if your number of building blocks is a perfect square.
+
+// Task
+// Given an integral number, determine if it's a square number:
+
+// In mathematics, a square number or perfect square is an integer that is the square of an integer;
+//  in other words, it is the product of some integer with itself.
+
+// The tests will always use some integral number, so don't worry about that in dynamic typed languages.
+
+// Examples
+// -1  =>  false
+//  0  =>  true
+//  3  =>  false
+//  4  =>  true
+// 25  =>  true
+// 26  =>  false
+
+var isSquare = function (n) {
+  if (n < 0) {
+    return false;
+  }
+  const sqrt = Math.sqrt(n);
+  return sqrt === Math.floor(sqrt);
+};
+
+// const isSquare = n => Number.isInteger(Math.sqrt(n));
+
+// console.log(isSquare(25));
+// console.log(isSquare(0));
+// console.log(isSquare(3));
+
+// 7.
+
+// Take an integer n (n >= 0) and a digit d (0 <= d <= 9) as an integer.
+
+// Square all numbers k (0 <= k <= n) between 0 and n.
+
+// Count the numbers of digits d used in the writing of all the k**2.
+
+// Implement the function taking n and d as parameters and returning this count.
+
+// Examples:
+// n = 10, d = 1
+// the k*k are 0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+// We are using the digit 1 in: 1, 16, 81, 100. The total count is then 4.
+
+// The function, when given n = 25 and d = 1 as argument, should return 11 since
+// the k*k that contain the digit 1 are:
+// 1, 16, 81, 100, 121, 144, 169, 196, 361, 441.
+// So there are 11 digits 1 for the squares of numbers between 0 and 25.
+// Note that 121 has twice the digit 1.
+
+function nbDig(n, d) {
+  const digit = d.toString();
+  let count = 0;
+
+  for (let i = 0; i <= n; i++) {
+    const square = i * i;
+
+    const squareStr = square.toString();
+
+    for (let char of squareStr) {
+      if (char === digit) {
+        count++;
+      }
+    }
+  }
+
+  return count;
+}
+
+// function nbDig(n, d) {
+//   let totalOfDigit = 0;
+
+//   for (let i = 0; i <= n; i++) {
+//     totalOfDigit += (i * i)
+//       .toString()
+//       .split("")
+//       .filter((n) => n == d).length;
+//   }
+
+//   return totalOfDigit;
+// }
+
+// console.log(nbDig(10, 1));
