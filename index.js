@@ -583,3 +583,177 @@ function nbDig(n, d) {
 // }
 
 // console.log(nbDig(10, 1));
+
+// ==========================================================================
+// ==========================================
+// ====================
+
+// 21.05.2024
+
+// 1.
+// You probably know the "like" system from Facebook and other pages.
+//  People can "like" blog posts, pictures or other items.We want to create
+//  the text that should be displayed next to such an item.
+
+// Implement the function which takes an array containing the names of people
+// that like an item.It must return the display text as shown in the examples:
+
+// []                                -->  "no one likes this"
+// ["Peter"]                         -->  "Peter likes this"
+// ["Jacob", "Alex"]                 -->  "Jacob and Alex like this"
+// ["Max", "John", "Mark"]           -->  "Max, John and Mark like this"
+// ["Alex", "Jacob", "Mark", "Max"]  -->  "Alex, Jacob and 2 others like this"
+// Note: For 4 or more names, the number in "and 2 others" simply increases.
+
+function likes(names) {
+  if (names.length === 0) {
+    return "no one likes this";
+  }
+  if (names.length === 1) {
+    return `${names[0]} likes this`;
+  }
+  if (names.length === 2) {
+    return `${names[0]} and ${names[1]} like this`;
+  }
+  if (names.length === 3) {
+    return `${names[0]}, ${names[1]} and ${names[2]} like this`;
+  }
+  if (names.length > 3) {
+    return `${names[0]}, ${names[1]} and ${names.length - 2} others like this`;
+  }
+}
+
+// console.log(likes([]));
+// console.log(likes(["Peter"]));
+// console.log(likes(["Jacob", "Alex"]));
+// console.log(likes(["Max", "John", "Mark"]));
+// console.log(likes(["Alex", "Jacob", "Mark", "Max"]));
+
+// 2.
+// Implement a pseudo - encryption algorithm which given a string S and an integer N
+// concatenates all the odd - indexed characters of S with all the even - indexed
+// characters of S, this process should be repeated N times.
+
+// Examples:
+
+// encrypt("012345", 1)  =>  "135024"
+// encrypt("012345", 2)  =>  "135024"  ->  "304152"
+// encrypt("012345", 3)  =>  "135024"  ->  "304152"  ->  "012345"
+
+// encrypt("01234", 1)  =>  "13024"
+// encrypt("01234", 2)  =>  "13024"  ->  "32104"
+// encrypt("01234", 3)  =>  "13024"  ->  "32104"  ->  "20314"
+// Together with the encryption function, you should also implement a decryption function which reverses the process.
+
+// If the string S is an empty value or the integer N is not positive, return the first argument without changes.
+
+function encrypt(text, n) {
+  console.log(text, n);
+  if (!text || n <= 0) return text;
+  while (n--) {
+    let ans = "";
+    for (let i = 1; i < text.length; i += 2) {
+      ans += text[i];
+    }
+    for (let i = 0; i < text.length; i += 2) {
+      ans += text[i];
+    }
+    text = ans;
+  }
+  return text;
+}
+
+function decrypt(encryptedText, n) {
+  if (!encryptedText || n <= 0) return encryptedText;
+  const ans = new Array(encryptedText.length);
+  while (n--) {
+    let j = 0;
+    for (let i = 1; i < ans.length; i += 2) {
+      ans[i] = encryptedText[j++];
+    }
+    for (let i = 0; i < ans.length; i += 2) {
+      ans[i] = encryptedText[j++];
+    }
+    encryptedText = ans.join("");
+  }
+  return encryptedText;
+}
+
+// console.log(encrypt("This is a test!", 0));
+// console.log(encrypt("This is a test!", 1));
+
+// console.log(decrypt("This is a test!", 0));
+// console.log(decrypt("hskt svr neetn!Ti aai eyitrsig", 1));
+
+// 3.
+// Write a function that takes a list of strings as an argument and returns
+//  a filtered list containing the same elements but with the 'geese' removed.
+
+// The geese are any strings in the following array, which is pre-populated in your solution:
+
+//   ["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"]
+// For example, if this array were passed as an argument:
+
+//  ["Mallard", "Hook Bill", "African", "Crested", "Pilgrim", "Toulouse", "Blue Swedish"]
+// Your function would return the following array:
+
+// ["Mallard", "Hook Bill", "Crested", "Blue Swedish"]
+// The elements in the returned array should be in the same order as in the initial array passed
+// to your function, albeit with the 'geese' removed.Note that all of the strings will be in
+//   the same case as those provided, and some elements may be repeated.
+
+function gooseFilter(birds) {
+  var geese = ["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"];
+  return birds.filter((bird) => !geese.includes(bird));
+}
+
+// console.log(
+//   gooseFilter(["Mallard", "Barbary", "Hook Bill", "Blue Swedish", "Crested"])
+// );
+
+// console.log(
+//   gooseFilter([
+//     "Mallard",
+//     "Hook Bill",
+//     "African",
+//     "Crested",
+//     "Pilgrim",
+//     "Toulouse",
+//     "Blue Swedish",
+//   ])
+// );
+
+// 4.
+// There is an array with some numbers. All numbers are equal except for one. Try to find it!
+
+// findUniq([ 1, 1, 1, 2, 1, 1 ]) === 2
+// findUniq([ 0, 0, 0.55, 0, 0 ]) === 0.55
+// It’s guaranteed that array contains at least 3 numbers.
+
+// The tests contain some very huge arrays, so think about performance.
+
+// This is the first kata in series:
+
+// Find the unique number (this kata)
+// Find the unique string
+// Find The Unique
+
+function findUniq(arr) {
+  const elCounts = new Map();
+
+  for (let i = 0; i < arr.length; i++) {
+    if (!elCounts.has(arr[i])) {
+      elCounts.set(arr[i], 1);
+    } else {
+      elCounts.set(arr[i], elCounts.get(arr[i]) + 1);
+    }
+  }
+  for (let [key, value] of elCounts) {
+    if (value === 1) {
+      return key;
+    }
+  }
+}
+
+// console.log(findUniq([1, 0, 0]));
+// console.log(findUniq([1, 1, 1, 2, 1, 1]));
