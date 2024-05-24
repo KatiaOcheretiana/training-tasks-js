@@ -757,3 +757,228 @@ function findUniq(arr) {
 
 // console.log(findUniq([1, 0, 0]));
 // console.log(findUniq([1, 1, 1, 2, 1, 1]));
+
+// ===================================================================================
+// =================================
+// 24.05.2024
+
+// 1)
+
+// The main idea is to count all the occurring characters in a string.
+// If you have a string like aba, then the result should be { 'a': 2, 'b': 1 }.
+
+// What if the string is empty? Then the result should be empty object literal, {}.
+
+// function count(string) {
+//   if (string === "") {
+//     return {};
+//   }
+
+//   const array = string.split("");
+//   const result = {};
+
+//   for (let i = 0; i < array.length; i++) {
+//     if (result[array[i]]) {
+//       result[array[i]]++;
+//     } else {
+//       result[array[i]] = 1;
+//     }
+//   }
+
+//   return result;
+// }
+
+function count(string) {
+  var count = {};
+  string.split("").forEach((s) => {
+    count[s] ? count[s]++ : (count[s] = 1);
+  });
+
+  return count;
+}
+
+// console.log(count(""));
+// console.log(count("a"));
+// console.log(count("aba"));
+// console.log(count("ABC"));
+
+// 2)
+// Welcome. In this kata, you are asked to square every digit of a number and concatenate them.
+// For example, if we run 9119 through the function, 811181 will come out, because 92 is 81 and 12 is 1. (81-1-1-81)
+// Example #2: An input of 765 will/should return 493625 because 72 is 49, 62 is 36, and 52 is 25. (49-36-25)
+// Note: The function accepts an integer and returns an integer.
+
+function squareDigits(num) {
+  const result = String(num)
+    .split("")
+    .map((el) => Math.pow(el, 2))
+    .join("");
+  return Number(result);
+}
+
+// console.log(squareDigits(2112));
+
+// 3)
+// Can you find the needle in the haystack?
+// Write a function findNeedle() that takes an array full of junk but containing one "needle"
+// After your function finds the needle it should return a message (as a string) that says:
+// "found the needle at position " plus the index it found the needle, so:
+
+// Example(Input --> Output)
+// ["hay", "junk", "hay", "hay", "moreJunk", "needle", "randomJunk"]-- > "found the needle at position 5"
+
+// Note: In COBOL, it should return "found the needle at position 6"
+
+function findNeedle(haystack) {
+  return `found the needle at position ${haystack.indexOf("needle")}`;
+}
+
+// console.log(
+//   findNeedle([
+//     "3",
+//     "123124234",
+//     undefined,
+//     "needle",
+//     "world",
+//     "hay",
+//     2,
+//     "3",
+//     true,
+//     false,
+//   ])
+// );
+
+// console.log(
+//   findNeedle([
+//     "283497238987234",
+//     "a dog",
+//     "a cat",
+//     "some random junk",
+//     "a piece of hay",
+//     "needle",
+//     "something somebody lost a while ago",
+//   ])
+// );
+
+// 4)
+// Write a function that checks if a given string (case insensitive) is a palindrome.
+
+// A palindrome is a word, number, phrase, or other sequence of symbols that reads
+//  the same backwards as forwards, such as madam or racecar.
+
+// function isPalindrome(x) {
+//   const input = x.toLowerCase();
+
+//   for (let i = 0, j = input.length - 1; i < j; i++, j--) {
+//     if (input[i] !== input[j]) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+
+const isPalindrome = (x) => {
+  return x.split("").reverse().join("").toLowerCase() === x.toLowerCase()
+    ? true
+    : false;
+};
+
+// console.log(isPalindrome("aba"));
+
+// 5)
+
+// Given two numbers and an arithmetic operator(the name of it, as a string),
+//  return the result of the two numbers having that operator used on them.
+
+// a and b will both be positive integers, and a will always be the first number
+//   in the operation, and b always the second.
+
+// The four operators are "add", "subtract", "divide", "multiply".
+
+// A few examples:(Input1, Input2, Input3 --> Output)
+
+// 5, 2, "add"      --> 7
+// 5, 2, "subtract" --> 3
+// 5, 2, "multiply" --> 10
+// 5, 2, "divide"   --> 2.5
+
+function arithmetic(a, b, operator) {
+  switch (operator) {
+    case "add":
+      return a + b;
+    case "subtract":
+      return a - b;
+    case "multiply":
+      return a * b;
+    case "divide":
+      return a / b;
+
+    default:
+      break;
+  }
+}
+
+// console.log(arithmetic(1, 2, "add"));
+// console.log(arithmetic(5, 2, "divide"));
+
+// 6)
+
+// Check to see if a string has the same amount of 'x's and 'o's.
+// The method must return a boolean and be case insensitive.The string can contain any char.
+
+// Examples input/output:
+
+// XO("ooxx") => true
+// XO("xooxx") => false
+// XO("ooxXm") => true
+// XO("zpzpzpp") => true // when no 'x' and 'o' is present should return true
+// XO("zzoo") => false
+
+function XO(str) {
+  const inputStr = str.toLowerCase();
+  const count = {};
+
+  for (let i = 0; i < inputStr.length; i++) {
+    if (count[inputStr[i]]) {
+      count[inputStr[i]]++;
+    } else {
+      count[inputStr[i]] = 1;
+    }
+  }
+  return count.x === count.o;
+}
+
+// const XO = (str) => {
+//   str = str.toLowerCase().split("");
+//   return (
+//     str.filter((x) => x === "x").length === str.filter((x) => x === "o").length
+//   );
+// };
+
+// console.log(XO("xxOo"));
+// console.log(XO("xo"));
+// console.log(XO("xxxm"));
+// console.log(XO("Oo"));
+
+// 7)
+// Complete the function that takes two integers(a, b, where a < b)
+// and return an array of all integers between the input parameters, including them.
+
+// For example:
+
+// a = 1
+// b = 4
+// --> [1, 2, 3, 4]
+
+function between(a, b) {
+  const result = [];
+
+  for (let i = a; i <= b; i++) {
+    result.push(i);
+  }
+
+  return result;
+}
+
+console.log(between(1, 4));
+console.log(between(-2, 2));
