@@ -980,5 +980,169 @@ function between(a, b) {
   return result;
 }
 
-console.log(between(1, 4));
-console.log(between(-2, 2));
+// console.log(between(1, 4));
+// console.log(between(-2, 2));
+
+// ==========================================================================
+
+// ================
+
+// 02.06.2024
+
+// 1)
+// Consider an array / list of sheep where some sheep may be missing from their place.
+//  We need a function that counts the number of sheep present in the array(true means present).
+
+// For example,
+
+// [true,  true,  true,  false,
+//   true,  true,  true,  true ,
+//   true,  false, true,  false,
+//   true,  false, false, true ,
+//   true,  true,  true,  true ,
+//   false, false, true,  true]
+// The correct answer would be 17.
+
+// Hint: Don't forget to check for bad values like null/undefined
+
+function countSheeps(sheep) {
+  return sheep.reduce((acc, item) => (item === true ? acc + 1 : acc), 0);
+}
+
+// console.log(
+//   countSheeps([undefined, null, false, true, true, false, null, undefined])
+// );
+
+// console.log(
+//   countSheeps([
+//     true,
+//     true,
+//     true,
+//     false,
+//     true,
+//     true,
+//     true,
+//     true,
+//     true,
+//     false,
+//     true,
+//     false,
+//     true,
+//     false,
+//     false,
+//     true,
+//     true,
+//     true,
+//     true,
+//     true,
+//     false,
+//     false,
+//     true,
+//     true,
+//   ])
+// );
+
+// 2)
+
+// Write a function to convert a name into initials. This kata strictly takes two words with one space in between them.
+
+// The output should be two capital letters with a dot separating them.
+
+// It should look like this:
+
+// Sam Harris => S.H
+
+// patrick feeney => P.F
+
+function abbrevName(name) {
+  const array = name.split(" ");
+  const first = array[0][0].toUpperCase();
+  const second = array[1][0].toUpperCase();
+  return `${first}.${second}`;
+}
+
+// function abbrevName(name) {
+//   return name
+//     .split(" ")
+//     .map((i) => i[0].toUpperCase())
+//     .join(".");
+// }
+
+// console.log(abbrevName("sam harris"));
+
+// 3)
+
+// Given an array of integers as strings and numbers,
+// return the sum of the array values as if all were numbers.
+
+// Return your answer as a number.
+
+function sumMix(x) {
+  let a = 0;
+  for (const i of x) {
+    let b = parseInt(i);
+    a += b;
+  }
+  return a;
+}
+
+// console.log(sumMix([9, 3, "7", "3"]));
+
+// 4)
+// Kata Task
+// I have a cat and a dog.
+
+// I got them at the same time as kitten/puppy. That was humanYears years ago.
+
+// Return their respective ages now as [humanYears,catYears,dogYears]
+
+// NOTES:
+
+// humanYears >= 1
+// humanYears are whole numbers only
+// Cat Years
+// 15 cat years for first year
+// +9 cat years for second year
+// +4 cat years for each year after that
+// Dog Years
+// 15 dog years for first year
+// +9 dog years for second year
+// +5 dog years for each year after that
+
+var humanYearsCatYearsDogYears = function (humanYears) {
+  let catYears;
+  let dogYears;
+
+  switch (humanYears) {
+    case 1:
+      catYears = 15;
+      dogYears = 15;
+      break;
+
+    case 2:
+      catYears = 15 + 9;
+      dogYears = 15 + 9;
+      break;
+    default:
+      catYears = 15 + 9 + (humanYears - 2) * 4;
+      dogYears = 15 + 9 + (humanYears - 2) * 5;
+      break;
+  }
+
+  return [humanYears, catYears, dogYears];
+};
+
+// console.log(humanYearsCatYearsDogYears(10));
+
+// 5)
+// Complete the function/method so that it returns the url with anything after the anchor (#) removed.
+
+// Examples
+// "www.codewars.com#about" --> "www.codewars.com"
+// "www.codewars.com?page=1" -->"www.codewars.com?page=1"
+
+function removeUrlAnchor(url) {
+  return url.split("#")[0];
+}
+
+// console.log(removeUrlAnchor("www.codewars.com#about"));
