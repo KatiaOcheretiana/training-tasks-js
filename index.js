@@ -1146,3 +1146,150 @@ function removeUrlAnchor(url) {
 }
 
 // console.log(removeUrlAnchor("www.codewars.com#about"));
+
+// ---------------------------------------------------------------------------------
+// =======================================================================================================
+
+// 11.06.24
+
+// 1)
+
+// Complete the square sum function so that it squares each number passed into it and then sums the results together.
+// For example, for [1, 2, 2] it should return 9 because
+
+function squareSum(numbers) {
+  return numbers.reduce((acc, n) => acc + Math.pow(n, 2), 0);
+}
+
+// console.log(squareSum([1, 2]));
+
+// 2)
+// Convert number to reversed array of digits
+// Given a random non-negative number, you have to return the digits of this number within an array in reverse order.
+
+// Example(Input => Output):
+// 35231 => [1,3,2,5,3]
+// 0 => [0]
+
+function digitize(n) {
+  const numberArray = n.toString().split("");
+  return numberArray.map((i) => Number(i)).reverse();
+}
+
+// console.log(digitize(35231));
+
+// 3)
+
+// Given an integer as input, can you round it to the next (meaning, "greater than or equal") multiple of 5?
+
+// Examples:
+
+// input:    output:
+// 0    ->   0
+// 2    ->   5
+// 3    ->   5
+// 12   ->   15
+// 21   ->   25
+// 30   ->   30
+// -2   ->   0
+// -5   ->   -5
+// etc.
+// Input may be any positive or negative integer (including 0).
+
+// You can assume that all inputs are valid integers.
+
+function roundToNext5(n) {
+  return Math.ceil(n / 5) * 5;
+}
+
+// console.log(roundToNext5(5));
+
+// 4)
+// This time no story, no theory. The examples below show you how to write function accum:
+
+// Examples:
+// accum("abcd") -> "A-Bb-Ccc-Dddd"
+// accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+// accum("cwAt") -> "C-Ww-Aaa-Tttt"
+// The parameter of accum is a string which includes only letters from a..z and A..Z.
+
+function accum(s) {
+  let array = [];
+
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    const segment = char.toUpperCase() + char.toLowerCase().repeat(i);
+
+    array.push(segment);
+  }
+
+  return array.join("-");
+}
+
+// function accum(s) {
+//   return s
+//     .split("")
+//     .map((c, i) => c.toUpperCase() + c.toLowerCase().repeat(i))
+//     .join("-");
+// }
+
+// console.log(accum("cwAt"));
+
+// 5)
+
+// Write a function named setAlarm / set_alarm / set - alarm / setalarm(depending on language)
+//  which receives two parameters.The first parameter, employed, is true whenever you are employed
+//  and the second parameter, vacation is true whenever you are on vacation.
+
+// The function should return true if you are employed and not on vacation(because these are the
+//   circumstances under which you need to set an alarm).It should return false otherwise.Examples:
+
+// employed | vacation
+// true     | true     => false
+// true     | false    => true
+// false    | true     => false
+// false    | false    => false
+
+function setAlarm(employed, vacation) {
+  return employed && !vacation ? true : false;
+}
+
+// console.log(setAlarm(true, false));
+
+// 6)
+
+// Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example:
+
+// * url = "http://github.com/carbonfive/raygun" -> domain name = "github"
+// * url = "http://www.zombie-bites.com"         -> domain name = "zombie-bites"
+// * url = "https://www.cnet.com"                -> domain name = cnet"
+
+function domainName(url) {
+  let result = url;
+
+  if (result.startsWith("http://")) {
+    result = result.slice(7);
+  } else if (result.startsWith("https://")) {
+    result = result.slice(8);
+  }
+
+  if (result.startsWith("www.")) {
+    result = result.slice(4);
+  }
+
+  let domainEndIndex = result.indexOf(".");
+  if (domainEndIndex !== -1) {
+    return result.slice(0, domainEndIndex);
+  }
+
+  return result;
+}
+
+// function domainName(url){
+//   url = url.replace("https://", '');
+//   url = url.replace("http://", '');
+//   url = url.replace("www.", '');
+//   return url.split('.')[0];
+// };
+
+// console.log(domainName("http://google.com"));
